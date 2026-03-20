@@ -1,0 +1,156 @@
+# CustomDeathMessages Configuration
+# =================================
+# Placeholders available in all messages:
+#   {player}  - The player who died (uses Essentials nickname if available)
+#   {killer}  - The entity/player that dealt the killing blow (uses Essentials nickname if a player)
+#   {world}   - The world the player died in
+#
+# Messages support MiniMessage formatting: https://docs.advntr.dev/minimessage/format.html
+# Examples: <red>, <bold>, <gradient:red:blue>, <rainbow>, &#RRGGBB hex colors
+#
+# You can provide a single message string or a list of strings.
+# When a list is provided, a random message is chosen each time.
+#
+# Set a cause to an empty list [] to suppress that death message entirely.
+#
+# Use 'default' for any cause not explicitly listed below.
+
+settings:
+  # Whether to use Essentials nicknames when available (requires Essentials to be installed)
+  use-essentials-nicknames: true
+  # Broadcast death messages to the entire server (true) or just the world (false)
+  broadcast-globally: true
+
+messages:
+  # Fallback for any unspecified cause
+  default:
+    - "<gray>{player} died."
+    - "<gray>{player} met their end."
+
+  # ── PvP / Mob kills ──────────────────────────────────────────────────────────
+  ENTITY_ATTACK:
+    - "<red>{player} <gray>was slain by <red>{killer}<gray>."
+    - "<red>{player} <gray>got destroyed by <red>{killer}<gray>."
+    - "<red>{player} <gray>lost a fight with <red>{killer}<gray>."
+
+  ENTITY_SWEEP_ATTACK:
+    - "<red>{player} <gray>was swept away by <red>{killer}<gray>."
+    - "<red>{player} <gray>didn't dodge <red>{killer}<gray>'s sweep."
+
+  PROJECTILE:
+    - "<yellow>{player} <gray>was shot by <yellow>{killer}<gray>."
+    - "<yellow>{player} <gray>was turned into a pincushion by <yellow>{killer}<gray>."
+    - "<yellow>{player} <gray>couldn't dodge <yellow>{killer}<gray>'s arrow."
+
+  MAGIC:
+    - "<light_purple>{player} <gray>was killed by magic from <light_purple>{killer}<gray>."
+    - "<light_purple>{player} <gray>was hexed by <light_purple>{killer}<gray>."
+
+  THORNS:
+    - "<green>{player} <gray>was killed trying to hurt <green>{killer}<gray>."
+
+  # ── Environmental ────────────────────────────────────────────────────────────
+  FALL:
+    - "<yellow>{player} <gray>fell to their death."
+    - "<yellow>{player} <gray>forgot that the ground is hard."
+    - "<yellow>{player} <gray>didn't stick the landing."
+    - "<yellow>{player} <gray>experienced a rapid unplanned descent."
+
+  FALL_flying_into_wall:
+    - "<yellow>{player} <gray>flew into a wall."
+
+  FLY_INTO_WALL:
+    - "<yellow>{player} <gray>flew into a wall."
+    - "<yellow>{player} <gray>wasn't watching where they were going."
+
+  DROWNING:
+    - "<aqua>{player} <gray>drowned."
+    - "<aqua>{player} <gray>forgot to breathe."
+    - "<aqua>{player} <gray>discovered they can't breathe underwater."
+
+  FIRE:
+    - "<gold>{player} <gray>went up in flames."
+    - "<gold>{player} <gray>burned to a crisp."
+
+  FIRE_TICK:
+    - "<gold>{player} <gray>burned to death."
+    - "<gold>{player} <gray>kept being on fire and died."
+
+  HOT_FLOOR:
+    - "<gold>{player} <gray>discovered the floor was lava."
+    - "<gold>{player} <gray>walked on magma blocks without boots."
+
+  LAVA:
+    - "<red>{player} <gray>tried to swim in lava."
+    - "<red>{player} <gray>took a lava bath."
+    - "<red>{player} <gray>became part of the lava."
+
+  MELTING:
+    - "<red>{player} <gray>melted away."
+
+  SUFFOCATION:
+    - "<gray>{player} <dark_gray>suffocated in a wall."
+    - "<gray>{player} <dark_gray>was buried alive."
+
+  CRAMMING:
+    - "<gray>{player} <dark_gray>was squished to death."
+    - "<gray>{player} <dark_gray>experienced too much company."
+
+  VOID:
+    - "<dark_gray>{player} fell into the void."
+    - "<dark_gray>{player} fell out of the world."
+
+  LIGHTNING:
+    - "<yellow>{player} <gray>was struck by lightning."
+    - "<yellow>{player} <gray>was personally chosen by Zeus."
+
+  FREEZE:
+    - "<aqua>{player} <gray>froze to death."
+    - "<aqua>{player} <gray>became a block of ice."
+
+  DRYOUT:
+    - "<aqua>{player} <gray>dried out."
+
+  # ── Explosions ───────────────────────────────────────────────────────────────
+  BLOCK_EXPLOSION:
+    - "<red>{player} <gray>was blown up."
+    - "<red>{player} <gray>got caught in an explosion."
+
+  ENTITY_EXPLOSION:
+    - "<red>{player} <gray>was blown up by <red>{killer}<gray>."
+    - "<red>{player} <gray>was in the blast radius of <red>{killer}<gray>."
+
+  # ── Status effects ───────────────────────────────────────────────────────────
+  POISON:
+    - "<green>{player} <gray>was poisoned to death."
+    - "<green>{player} <gray>drank something they shouldn't have."
+
+  WITHER:
+    - "<dark_gray>{player} <gray>withered away."
+    - "<dark_gray>{player} <gray>was inflicted with wither."
+
+  STARVATION:
+    - "<yellow>{player} <gray>starved to death."
+    - "<yellow>{player} <gray>forgot to eat."
+
+  # ── Other ────────────────────────────────────────────────────────────────────
+  FALLING_BLOCK:
+    - "<gray>{player} <dark_gray>was squashed by a falling block."
+    - "<gray>{player} <dark_gray>didn't look up in time."
+
+  DRAGON_BREATH:
+    - "<dark_purple>{player} <gray>was roasted by dragon's breath."
+    - "<dark_purple>{player} <gray>got too close to the Ender Dragon."
+
+  SONIC_BOOM:
+    - "<aqua>{player} <gray>was obliterated by a sonic boom."
+    - "<aqua>{player} <gray>felt the wrath of the Warden."
+
+  SUICIDE:
+    - "<gray>{player} <dark_gray>died."
+
+  CUSTOM:
+    - "<gray>{player} <dark_gray>died."
+
+  KILL:
+    - "<gray>{player} <dark_gray>was killed."

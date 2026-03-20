@@ -1,0 +1,20 @@
+name: CustomDeathMessages
+version: '${project.version}'
+main: com.github.choudesu.customdeathmessages.CustomDeathMessages
+api-version: '1.21'
+description: Replace standard death messages with custom configurable ones, with Essentials nickname support.
+authors: [ choudesu ]
+soft-depend:
+  - Essentials
+
+commands:
+  customdeathmessages:
+    description: Manage the CustomDeathMessages plugin.
+    aliases: [ cdm ]
+    usage: /customdeathmessages <reload>
+    permission: customdeathmessages.admin
+
+permissions:
+  customdeathmessages.admin:
+    description: Allows reloading the plugin configuration.
+    default: op
