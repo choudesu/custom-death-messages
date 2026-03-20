@@ -28,6 +28,17 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
             cmd.setTabCompleter(this);
         }
 
+        getLogger().info("  ____          _                   ____             _   _     ");
+        getLogger().info(" / ___|   _ ___| |_ ___  _ __ ___  |  _ \\  ___  __ _| |_| |__  ");
+        getLogger().info("| |  | | | / __| __/ _ \\| '_ ` _ \\ | | | |/ _ \\/ _` | __| '_ \\ ");
+        getLogger().info("| |__| |_| \\__ \\ || (_) | | | | | || |_| |  __/ (_| | |_| | | |");
+        getLogger().info(" \\____\\__,_|___/\\__\\___/|_| |_| |_||____/ \\___|\\__,_|\\__|_| |_|");
+        getLogger().info("  __  __                                                         ");
+        getLogger().info(" |  \\/  | ___  ___ ___  __ _  __ _  ___  ___                   ");
+        getLogger().info(" | |\\/| |/ _ \\/ __/ __|/ _` |/ _` |/ _ \\/ __|                  ");
+        getLogger().info(" | |  | |  __/\\__ \\__ \\ (_| | (_| |  __/\\__ \\                  ");
+        getLogger().info(" |_|  |_|\\___||___/___/\\__,_|\\__, |\\___||___/                  ");
+        getLogger().info("                              |___/                              ");
         getLogger().info("CustomDeathMessages enabled. Essentials integration: "
                 + (essentialsHook.isAvailable() ? "active" : "not available"));
     }
