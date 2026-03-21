@@ -13,6 +13,7 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
     private ConfigManager configManager;
     private EssentialsHook essentialsHook;
     private ComboTracker comboTracker;
+    private PlayerMessageManager playerMessageManager;
 
     @Override
     public void onEnable() {
@@ -21,6 +22,7 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
         this.configManager = new ConfigManager(this);
         this.essentialsHook = new EssentialsHook(this);
         this.comboTracker = new ComboTracker(this);
+        this.playerMessageManager = new PlayerMessageManager(this);
 
         getServer().getPluginManager().registerEvents(new DeathMessageListener(this), this);
 
@@ -28,6 +30,13 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
         if (cmd != null) {
             cmd.setExecutor(this);
             cmd.setTabCompleter(this);
+        }
+
+        var dmCmd = getCommand("deathmessage");
+        if (dmCmd != null) {
+            DeathMessageCommand dmExec = new DeathMessageCommand(this);
+            dmCmd.setExecutor(dmExec);
+            dmCmd.setTabCompleter(dmExec);
         }
 
         getLogger().info("  ____          _                   ____             _   _     ");
@@ -56,6 +65,7 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             reloadConfig();
             configManager.reload();
+            playerMessageManager.reload();
             sender.sendMessage(net.kyori.adventure.text.minimessage.MiniMessage.miniMessage()
                     .deserialize("<green>CustomDeathMessages config reloaded."));
             return true;
@@ -83,5 +93,9 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
 
     public ComboTracker getComboTracker() {
         return comboTracker;
+    }
+
+    public PlayerMessageManager getPlayerMessageManager() {
+        return playerMessageManager;
     }
 }

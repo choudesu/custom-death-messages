@@ -30,6 +30,30 @@ public class DeathMessageListener implements Listener {
         }
 
         Player victim = event.getPlayer();
+
+        // Per-player override takes priority over everything (config messages and combo system).
+        String customTemplate = plugin.getPlayerMessageManager().getCustomMessage(victim.getUniqueId());
+        if (customTemplate != null && !customTemplate.isBlank()) {
+            Component playerName = resolvePlayerName(victim);
+            Component killerName = resolveKillerName(victim);
+            Component customMessage = miniMessage.deserialize(
+                    customTemplate,
+                    TagResolver.builder()
+                            .resolver(Placeholder.component("player", playerName))
+                            .resolver(Placeholder.component("killer", killerName))
+                            .resolver(Placeholder.unparsed("world", victim.getWorld().getName()))
+                            .build()
+            );
+            if (plugin.getConfigManager().isBroadcastGlobally()) {
+                event.deathMessage(customMessage);
+            } else {
+                event.deathMessage(null);
+                for (Player p : victim.getWorld().getPlayers()) p.sendMessage(customMessage);
+                victim.getServer().getConsoleSender().sendMessage(customMessage);
+            }
+            return;
+        }
+
         var damage = victim.getLastDamageCause();
         var cause = damage != null
                 ? damage.getCause()

@@ -13,8 +13,22 @@ commands:
     aliases: [ cdm ]
     usage: /customdeathmessages <reload>
     permission: customdeathmessages.admin
+  deathmessage:
+    description: Set or clear your personal custom death message.
+    aliases: [ dm ]
+    usage: /deathmessage <set [player] <message>|clear [player]>
+    permission: customdeathmessages.deathmessage.set
 
 permissions:
   customdeathmessages.admin:
     description: Allows reloading the plugin configuration.
+    default: op
+  customdeathmessages.deathmessage.set:
+    description: Allows a player to set their own custom death message.
+    default: true
+  customdeathmessages.deathmessage.clear:
+    description: Allows a player to clear their own custom death message.
+    default: true
+  customdeathmessages.deathmessage.admin:
+    description: Allows setting or clearing another player's custom death message.
     default: op

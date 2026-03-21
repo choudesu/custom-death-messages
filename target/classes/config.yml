@@ -1,19 +1,26 @@
 # CustomDeathMessages Configuration
 # =================================
-# Placeholders available in all messages:
-#   <player>  - The player who died (uses Essentials nickname if available)
-#   <killer>  - The entity/player that dealt the killing blow (uses Essentials nickname if a player)
-#   <world>   - The world the player died in
 #
-# Messages support MiniMessage formatting: https://docs.advntr.dev/minimessage/format.html
-# Examples: <red>, <bold>, <gradient:red:blue>, <rainbow>, &#RRGGBB hex colors
+# DEATH MESSAGE PLACEHOLDERS
+#   <player>  — The player who died (uses Essentials nickname if available)
+#   <killer>  — The entity or player that dealt the killing blow
+#               Players use their display name (or Essentials nickname).
+#               Mobs use their type name prefixed with "a" or "an" (e.g. "a Zombie", "an Enderman").
+#               Custom-named mobs use their custom name with no article.
+#   <world>   — The name of the world the death occurred in
 #
-# You can provide a single message string or a list of strings.
-# When a list is provided, a random message is chosen each time.
+# MINIMESSAGE FORMATTING
+#   Full MiniMessage tag support: https://docs.advntr.dev/minimessage/format.html
+#   Examples: <red>, <bold>, <gradient:red:gold>, <rainbow>, <#RRGGBB>
 #
-# Set a cause to an empty list [] to suppress that death message entirely.
+# MESSAGE LISTS
+#   You can provide a single string or a list of strings per cause.
+#   When a list is given, one entry is chosen at random each time.
+#   Set a cause to an empty list [] to suppress that death message entirely.
 #
-# Use 'default' for any cause not explicitly listed below.
+# DAMAGE CAUSES
+#   Use 'default' as a fallback for any cause not explicitly listed.
+#   All Bukkit DamageCause enum values are valid keys (case-insensitive).
 
 settings:
   # Whether to use Essentials nicknames when available (requires Essentials to be installed)
@@ -22,15 +29,24 @@ settings:
   broadcast-globally: true
 
 # ── Death Combo System ────────────────────────────────────────────────────────
-# If a player is killed by the same killer (same player UUID, or same mob type)
-# multiple times within the combo window, a LoL-style milestone is announced.
-# When the window expires with an active streak, a combo-breaker is broadcast.
+# Tracks how many times a player is killed by the same killer within a time window.
+# "Same killer" means the same player (by UUID) or the same mob type (e.g. all Zombies count
+# as one killer). Dying to a DIFFERENT killer silently resets the streak.
+# When a milestone is reached, the regular death message is replaced by milestone-broadcast.
+# When the combo window expires with an active streak (≥2), a server-wide breaker message
+# is sent and the victim receives a private congratulation.
 combo:
+  # Set to false to disable the combo system entirely.
   enabled: true
-  # How long (in seconds) the combo window stays open after each death
+
+  # How many seconds after the last death the combo window stays open.
+  # The timer resets with each new death to the same killer.
   window-seconds: 120
-  # Milestone labels keyed by minimum combo count.
-  # The highest defined label is reused for all counts beyond it.
+
+  # Milestone labels shown at each combo count threshold.
+  # Keys are the minimum combo count that triggers that label.
+  # The highest defined label is reused for all counts beyond it (9x, 10x, … = Godlike).
+  # Labels support full MiniMessage formatting including gradients and rainbow.
   milestones:
     2: "<gradient:yellow:gold><bold>Double Kill</bold></gradient>"
     3: "<gradient:gold:red><bold>Triple Kill</bold></gradient>"
@@ -39,14 +55,23 @@ combo:
     6: "<gradient:dark_purple:light_purple><bold>Legendary</bold></gradient>"
     7: "<gradient:light_purple:white><bold>Unstoppable</bold></gradient>"
     8: "<rainbow><bold>Godlike</bold></rainbow>"
-  # Replaces the regular death message when a combo milestone is reached.
-  # Placeholders: <player>, <killer>, <milestone>, <combo>
-  milestone-broadcast: "<red><player></red> <gray>was slain by</gray> <killer> <dark_gray>—</dark_gray> <milestone> <gray>(<combo>x)</gray>"
-  # Broadcast to the whole server when the combo window expires.
-  # Placeholders: <player>, <combo>
+
+  # Replaces the normal death message when a milestone is reached (broadcast server-wide).
+  # Placeholders:
+  #   <death_message> — the fully-rendered custom death message for this cause
+  #   <milestone>     — the milestone label from the milestones section above
+  #   <combo>         — the current combo count as a number
+  milestone-broadcast: "<death_message> <dark_gray> - </dark_gray> <milestone> <gray>(<combo>x)</gray>"
+
+  # Sent server-wide when the combo window expires (the victim survived the streak).
+  # Placeholders:
+  #   <player> — the player who survived
+  #   <combo>  — the final streak count
   breaker-broadcast: "<gray><aqua><player></aqua> survived a <bold><combo>x</bold> death streak!</gray>"
+
   # Sent privately to the victim when their streak ends.
-  # Placeholders: <combo>
+  # Placeholders:
+  #   <combo> — the final streak count
   breaker-private: "<green>You survived a <bold><combo>x</bold> death streak! Well done.</green>"
 
 messages:
