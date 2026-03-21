@@ -61,7 +61,7 @@ combo:
   #   <death_message> — the fully-rendered custom death message for this cause
   #   <milestone>     — the milestone label from the milestones section above
   #   <combo>         — the current combo count as a number
-  milestone-broadcast: "<death_message> <dark_gray>—</dark_gray> <milestone> <gray>(<combo>x)</gray>"
+  milestone-broadcast: "<death_message> <dark_gray> - </dark_gray> <milestone> <gray>(<combo>x)</gray>"
 
   # Sent server-wide when the combo window expires (the victim survived the streak).
   # Placeholders:
