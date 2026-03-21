@@ -13,6 +13,7 @@ Replace standard Minecraft death messages with fully customizable ones, with Min
 - **World-scoped broadcast** — optionally limit death messages to the world the player died in
 - **Suppress messages** — set any cause to an empty list `[]` to hide those death messages entirely
 - **Death combo system** — LoL-style kill streak tracker with configurable milestones, gradient labels, and a combo-breaker broadcast
+- **Per-player custom messages** — players can set their own death message that overrides all other messages, including combo milestones
 - **Live reload** — `/cdm reload` reloads the config without restarting
 
 ## Requirements
@@ -163,13 +164,34 @@ combo:
 | Survive window with no streak | Silent — nothing sent |
 | `combo.enabled: false` | Feature disabled entirely |
 
+## Per-Player Custom Messages
+
+Players can override all death messages (including combo milestones) with their own personal message using `/deathmessage set`. The message supports full MiniMessage formatting and the same `<player>`, `<killer>`, `<world>` placeholders.
+
+Custom messages are stored persistently in `plugins/CustomDeathMessages/player_messages.yml` and survive server restarts.
+
+```
+/deathmessage set <red><player> exploded dramatically.
+/deathmessage set <gradient:gold:yellow><player></gradient> met their end at the hands of <killer>.
+/deathmessage clear
+```
+
+Admins can manage messages for other (online) players:
+
+```
+/deathmessage set Steve <red><player> was obliterated.
+/deathmessage clear Steve
+```
+
 ## Commands & Permissions
 
-| Command | Alias | Description | Permission |
-|---|---|---|---|
-| `/customdeathmessages reload` | `/cdm reload` | Reload the config live | `customdeathmessages.admin` |
-
-`customdeathmessages.admin` defaults to **OP**.
+| Command | Alias | Description | Permission | Default |
+|---|---|---|---|---|
+| `/customdeathmessages reload` | `/cdm reload` | Reload the config live | `customdeathmessages.admin` | OP |
+| `/deathmessage set <message>` | `/dm set` | Set your own custom death message | `customdeathmessages.deathmessage.set` | Everyone |
+| `/deathmessage clear` | `/dm clear` | Clear your own custom death message | `customdeathmessages.deathmessage.clear` | Everyone |
+| `/deathmessage set <player> <message>` | `/dm set` | Set another player's custom death message | `customdeathmessages.deathmessage.admin` | OP |
+| `/deathmessage clear <player>` | `/dm clear` | Clear another player's custom death message | `customdeathmessages.deathmessage.admin` | OP |
 
 ## Building from Source
 
