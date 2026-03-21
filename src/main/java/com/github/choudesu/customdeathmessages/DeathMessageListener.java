@@ -113,7 +113,8 @@ public class DeathMessageListener implements Listener {
                     .replace('_', ' ')
                     .toLowerCase();
             typeName = Character.toUpperCase(typeName.charAt(0)) + typeName.substring(1);
-            return Component.text(typeName);
+            String article = "aeiouAEIOU".indexOf(typeName.charAt(0)) >= 0 ? "an" : "a";
+            return Component.text(article + " " + typeName);
         }
 
         return Component.text("Unknown");
