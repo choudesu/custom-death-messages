@@ -59,7 +59,22 @@ public class DeathMessageListener implements Listener {
                         .build()
         );
 
-        if (plugin.getConfigManager().isBroadcastGlobally()) {
+        // Resolve combo count first so we can decide which message to send.
+        int comboCount = 0;
+        if (plugin.getConfigManager().getComboConfig().enabled()) {
+            Entity rawDamager = resolveRawDamager(victim);
+            if (rawDamager != null) {
+                String killerId = ComboTracker.resolveKillerId(rawDamager);
+                comboCount = plugin.getComboTracker().recordDeath(victim, killerId, killerName);
+            }
+        }
+
+        if (comboCount >= 2) {
+            // Milestone broadcast replaces the regular death message entirely.
+            event.deathMessage(null);
+            String milestone = plugin.getConfigManager().getMilestoneLabel(comboCount);
+            broadcastMilestone(message, milestone, comboCount);
+        } else if (plugin.getConfigManager().isBroadcastGlobally()) {
             event.deathMessage(message);
         } else {
             // Suppress the global broadcast and manually send to the victim's world only.
@@ -69,6 +84,35 @@ public class DeathMessageListener implements Listener {
             }
             victim.getServer().getConsoleSender().sendMessage(message);
         }
+    }
+
+    // ── Combo helpers ─────────────────────────────────────────────────────────
+
+    /** Returns the raw killing entity (unwrapping projectiles), or null if non-entity damage. */
+    private Entity resolveRawDamager(Player victim) {
+        var damage = victim.getLastDamageCause();
+        if (!(damage instanceof org.bukkit.event.entity.EntityDamageByEntityEvent ede)) return null;
+        Entity damager = ede.getDamager();
+        if (damager instanceof Projectile projectile) {
+            ProjectileSource source = projectile.getShooter();
+            if (source instanceof Entity shooter) {
+                damager = shooter;
+            }
+        }
+        return damager;
+    }
+
+    private void broadcastMilestone(Component deathMessage, String milestone, int count) {
+        String template = plugin.getConfigManager().getComboConfig().milestoneBroadcast();
+        Component msg = miniMessage.deserialize(
+                template,
+                TagResolver.builder()
+                        .resolver(Placeholder.component("death_message", deathMessage))
+                        .resolver(Placeholder.component("milestone", miniMessage.deserialize(milestone)))
+                        .resolver(Placeholder.unparsed("combo", String.valueOf(count)))
+                        .build()
+        );
+        plugin.getServer().broadcast(msg);
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────

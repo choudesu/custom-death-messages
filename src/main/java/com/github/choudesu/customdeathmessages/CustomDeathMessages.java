@@ -12,6 +12,7 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
 
     private ConfigManager configManager;
     private EssentialsHook essentialsHook;
+    private ComboTracker comboTracker;
 
     @Override
     public void onEnable() {
@@ -19,6 +20,7 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
 
         this.configManager = new ConfigManager(this);
         this.essentialsHook = new EssentialsHook(this);
+        this.comboTracker = new ComboTracker(this);
 
         getServer().getPluginManager().registerEvents(new DeathMessageListener(this), this);
 
@@ -45,6 +47,7 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
 
     @Override
     public void onDisable() {
+        if (comboTracker != null) comboTracker.clearAll();
         getLogger().info("CustomDeathMessages disabled.");
     }
 
@@ -76,5 +79,9 @@ public class CustomDeathMessages extends JavaPlugin implements CommandExecutor, 
 
     public EssentialsHook getEssentialsHook() {
         return essentialsHook;
+    }
+
+    public ComboTracker getComboTracker() {
+        return comboTracker;
     }
 }
