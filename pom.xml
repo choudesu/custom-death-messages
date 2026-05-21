@@ -13,8 +13,8 @@
     <description>Replace standard Minecraft death messages with custom configurable ones, with Essentials nickname support.</description>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -30,11 +30,11 @@
     </repositories>
 
     <dependencies>
-        <!-- Paper API for Minecraft 1.21.1 -->
+        <!-- Paper API for Minecraft 26.1 -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <version>26.1.2.build.64-stable</version>
             <scope>provided</scope>
         </dependency>
 
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>net.essentialsx</groupId>
             <artifactId>EssentialsX</artifactId>
-            <version>2.20.1</version>
+            <version>2.21.2</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -60,8 +60,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <source>25</source>
+                    <target>25</target>
                 </configuration>
             </plugin>
             <plugin>
