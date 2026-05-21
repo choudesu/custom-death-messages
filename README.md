@@ -20,9 +20,9 @@ Replace standard Minecraft death messages with fully customizable ones, with Min
 
 | Requirement | Version |
 |---|---|
-| Paper (or fork) | 1.21.1+ |
-| Java | 21+ |
-| EssentialsX *(optional)* | 2.20.1+ |
+| Paper (or fork) | 26.1+ |
+| Java | 25+ |
+| EssentialsX *(optional)* | 2.21.2+ |
 
 ## Installation
 
@@ -77,7 +77,7 @@ messages:
 
 #### Supported Damage Causes
 
-All Bukkit [`DamageCause`](https://jd.papermc.io/paper/1.21.1/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html) values are valid config keys. Common ones:
+All Bukkit [`DamageCause`](https://jd.papermc.io/paper/26.1.2/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html) values are valid config keys. Common ones:
 
 | Key | When it triggers |
 |---|---|
@@ -202,4 +202,4 @@ mvn package
 # Output: target/custom-death-messages-<version>.jar
 ```
 
-Requires Java 21 and Maven 3.8+.
+Requires Java 25 and Maven 3.8+.

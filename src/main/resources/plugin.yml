@@ -1,7 +1,7 @@
 name: CustomDeathMessages
 version: '${project.version}'
 main: com.github.choudesu.customdeathmessages.CustomDeathMessages
-api-version: '1.21'
+api-version: '26.1.2'
 description: Replace standard death messages with custom configurable ones, with Essentials nickname support.
 authors: [ choudesu ]
 soft-depend:
